@@ -20,6 +20,7 @@ header("Content-type: text/json");
 $query_type = $_GET['query_type'];
 $host = $_GET['uptime_host'];
 $time_frame = $_GET['time_frame'];
+
 $service_monitor = explode("-", $_GET['monitor']);
 $erdc_parameter_id = $service_monitor[0];
 $data_type_id = $service_monitor[1];
@@ -28,8 +29,10 @@ $element = explode("-", $_GET['element']);
 $element_id = $_GET['element'];
 $entity_id = $element[0];
 $erdc_instance_id = $element[1];
+
 $device_id = $_GET['device_id'];
-$if_index = $_GET['if_index'];
+$if_index = $_GET['port_id'];
+
 $hostname = $host . ":3308";
 $dbname = "uptime";
 $username = "uptime";
@@ -55,7 +58,7 @@ if ($query_type == "network_devices") {
         die('Invalid query: ' . mysqli_error());
     }
     while ($row = mysqli_fetch_assoc($result)) {
-        $json[$row['entity_id']] = $row['display_name'];
+        $json[$row['display_name']] = $row['entity_id'];
         } 
     // Close the DB connection
     $result->close();
@@ -76,7 +79,7 @@ elseif ($query_type == "network_ports") {
     }
     // Get results
     while ($row = mysqli_fetch_assoc($result)) {
-        $json[$row['if_index']] = $row['if_name'];
+        $json[$row['if_name']] = $row['if_index'];
         }
     // Close the DB connection
     $result->close();
@@ -85,27 +88,54 @@ elseif ($query_type == "network_ports") {
     }
 // Get network metrics for a specific device and port
 elseif ($query_type == "network_port_metrics") {
-    $sql = "SELECT e.entity_id, e.name entity_name, portConf.if_index, portConf.if_name, portConf.if_speed, 
-		perfPort.kbps_in_rate, perfPort.kbps_out_rate, perfPort.kbps_total_rate, 
-		perfPort.discards_in_rate, perfPort.discards_out_rate, perfPort.discards_total_rate, 
-		perfPort.errors_in_rate, perfPort.errors_out_rate, perfPort.errors_total_rate, 
-		perfPort.usage_in_percent, perfPort.usage_out_percent, perfPort.usage_percent
+    $sql = "SELECT  ps.id, ps.sample_time, e.entity_id, e.name entity_name, portConf.if_index, portConf.if_name, portConf.if_speed, 
+                    perfPort.kbps_in_rate, perfPort.kbps_out_rate, perfPort.kbps_total_rate, 
+                    perfPort.discards_in_rate, perfPort.discards_out_rate, perfPort.discards_total_rate, 
+                    perfPort.errors_in_rate, perfPort.errors_out_rate, perfPort.errors_total_rate, 
+                    perfPort.usage_in_percent, perfPort.usage_out_percent, perfPort.usage_percent
             FROM net_device_perf_latest_sample lastSample
             INNER JOIN entity e ON e.entity_id = lastSample.entity_id
             INNER JOIN net_device_port_config portConf ON e.entity_id = portConf.entity_id
             INNER JOIN net_device_perf_port perfPort ON (perfPort.sample_id = lastSample.sample_id
                 AND portConf.if_index = perfPort.if_index)
+            INNER JOIN performance_sample ps ON ps.id = perfPort.sample_id
             WHERE e.entity_id = $device_id
                 AND portConf.if_index = $if_index";
     $result = mysqli_query($db, $sql);
+    
     // Check query
     if (!$result) {
         die('Invalid query: ' . mysqli_error());
     }
+    
     // Get results
     while ($row = mysqli_fetch_assoc($result)) {
-        $json[$row['if_index']] = $row['if_name'];
-        }
+        $sample_time = strtotime($row['sample_time']);
+        $x = $sample_time * 1000;
+        
+        $if_speed = $row['if_speed'];
+        $kbps_in_rate = $row['kbps_in_rate'];
+        $kbps_out_rate = $row['kbps_out_rate'];
+        $kbps_total_rate = $row['kbps_total_rate'];
+        $discards_in_rate = $row['discards_in_rate'];
+        $discards_out_rate = $row['discards_out_rate'];
+        $discards_total_rate = $row['discards_total_rate'];
+        $errors_in_rate = $row['errors_in_rate'];
+        $errors_out_rate = $row['errors_out_rate'];
+        $errors_total_rate = $row['errors_total_rate'];
+        $usage_in_percent = $row['usage_in_percent'];
+        $usage_out_percent = $row['usage_out_percent'];
+        $usage_percent = $row['usage_percent'];
+        
+        $y = array("if_speed" => $if_speed, "kbps_in_rate" => $kbps_in_rate, "kbps_out_rate" => $kbps_out_rate, "kbps_total_rate" => $kbps_total_rate,
+              "discards_in_rate" => $discards_in_rate, "discards_out_rate" => $discards_out_rate, "discards_total_rate" => $discards_total_rate,
+              "errors_in_rate" => $errors_in_rate, "errors_out_rate" => $errors_out_rate, "errors_total_rate" => $errors_total_rate,
+              "usage_in_percent" => $usage_in_percent, "usage_out_percent" => $usage_out_percent, "usage_percent" => $usage_percent);
+    }
+    
+    $metric = array($x, $y);
+    array_push($json, $metric);
+        
     // Close the DB connection
     $result->close();
     // Echo results as JSON
