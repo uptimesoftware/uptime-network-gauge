@@ -1,4 +1,4 @@
-![Image](https://raw.github.com/uptimesoftware/uptime-metric-chart/master/img/networkGauge.Thumbnail.png)
+![Image](https://raw.github.com/uptimesoftware/uptime-network-gauge/master/img/networkGauge.Thumbnail.png)
 ### Description
 The Network Gauge gadget allows you to visualize utilization of any of your network device ports.
 
