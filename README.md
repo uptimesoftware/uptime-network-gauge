@@ -1,5 +1,6 @@
 ### Description
 The Network Gauge gadget allows you to visualize utilization of any of your network device ports.
+
 ![Image](https://raw.github.com/uptimesoftware/uptime-network-gauge/master/img/networkGauge.Thumbnail.png)
 ### Features
 * Leverages latest web technologies for light-weight and beautiful results
