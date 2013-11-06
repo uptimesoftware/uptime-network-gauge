@@ -1,0 +1,6 @@
+name=Network Gauge Gadget
+version=1.0
+platforms=windows,linux
+description=The Network Gauge gadget allows you to visualize utilization of any of your network device ports.
+requiresAgentScript=false
+restartCore=false
