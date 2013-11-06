@@ -1,7 +1,6 @@
-![Image](https://raw.github.com/uptimesoftware/uptime-network-gauge/master/img/networkGauge.Thumbnail.png)
 ### Description
 The Network Gauge gadget allows you to visualize utilization of any of your network device ports.
-
+![Image](https://raw.github.com/uptimesoftware/uptime-network-gauge/master/img/networkGauge.Thumbnail.png)
 ### Features
 * Leverages latest web technologies for light-weight and beautiful results
 * Provides an intuitive configuration wizard
@@ -15,7 +14,7 @@ The Network Gauge gadget allows you to visualize utilization of any of your netw
 ### Version Compatibility
                         | 7.2 | 7.1 | 7.0 | 6.0 | 5.5 | 5.4 | 5.3 | 5.2 |
     --------------------|-----|-----|-----|-----|-----|-----|-----|-----|
-      Metric Chart v1.0 | X   |     |     |     |     |     |     |     |
+     Network Gauge v1.0 | X   |     |     |     |     |     |     |     |
 
 ### Installation Notes
 1. Install using Plug-in Manager, following the standard process. 
