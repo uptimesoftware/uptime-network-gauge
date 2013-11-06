@@ -18,9 +18,8 @@ The Network Gauge gadget allows you to visualize utilization of any of your netw
      Network Gauge v1.0 | X   |     |     |     |     |     |     |     |
 
 ### Installation Notes
-1. Install using Plug-in Manager, following the standard process. 
-2. Refresh dashboard layouts to see the new ones. 
-3. Refresh the gadgets to see Metric Chart. 
+1. Install using Plug-in Manager, following the standard process.
+2. Refresh the gadgets to see Network Gauge.
 4. Have fun!
 
 ### Usage Instructions
