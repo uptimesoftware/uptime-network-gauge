@@ -20,6 +20,7 @@ By default, Network Gauge expects a standard Monitoring Station configuration, l
 ###Candidate Features
 * Extend functionality to NIC ports of physical and virtual machines
 * _Your enhancement requests!_
+
 ---
 
 Thanks,
