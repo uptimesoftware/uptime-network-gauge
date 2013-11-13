@@ -1,4 +1,4 @@
-Network Gauge v1.0
+Network Gauge v1.1
 ------------------
 The Network Gauge gadget allows you to visualize utilization of any of your network device ports.
 
@@ -27,6 +27,5 @@ Usage Instructions:
 Installation Instructions:
 --------------------------
 1. Install using Plug-in Manager, following the standard process. 
-2. Refresh dashboard layouts to see the new ones. 
-3. Refresh the gadgets to see Metric Chart. 
-4. Have fun!
+2. Refresh the gadgets and select Network Gauge. 
+
