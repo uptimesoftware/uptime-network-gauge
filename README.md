@@ -10,7 +10,9 @@ Display port-level utilization of your network devices in a convenient visual ga
 By default, Network Gauge expects a standard Monitoring Station configuration, leveraging a MySQL database with default credentials.  However, the MySQL connection settings can be modified to match your environment.
 
 ###Candidate Features
-* Make it possible to adjust the maximum bandwidth.  For example, to reflect bandwidth provided by the ISP versus port speed.
+* Add timestamp to the dial
+* Disable entries in the ports dropdown for interfaces with insufficient metrics.
+* Make maximum bandwidth adjustable.  For example, to reflect bandwidth provided by the ISP versus port speed.
 * Extend functionality to NIC ports of physical and virtual machines.
 * _Your enhancement requests!_
 
