@@ -10,8 +10,13 @@ Display port-level utilization of your network devices in a convenient visual ga
 By default, Network Gauge expects a standard Monitoring Station configuration, leveraging a MySQL database with default credentials.  However, the MySQL connection settings can be modified to match your environment.
 
 ###Candidate Features
-* Extend functionality to NIC ports of physical and virtual machines
+* Make it possible to adjust the maximum bandwidth.  For example, to reflect bandwidth provided by the ISP versus port speed.
+* Extend functionality to NIC ports of physical and virtual machines.
 * _Your enhancement requests!_
+
+###Advanced Instructions
+* Open the configuration dialog by double-clicking on the chart
+* Double-click on the gauge icon (left of the threshold slider) to toggle verbose logging on and off
 
 ---
 
