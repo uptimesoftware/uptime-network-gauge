@@ -15,10 +15,11 @@ var refreshIntervalOptions = {"10000" : "10 seconds", "30000" : "30 seconds",
 var refreshIntervalSliderOptions = {"1" : "10000", "2" : "30000", "3" : "60000",
     "4" : "300000", "5" : "600000" };
 var gadgetInstanceId = uptimeGadget.getInstanceId();
-var gadgetGetMetricsPath = '/gadgets/instances/' + gadgetInstanceId + '/getNetworkDeviceMetrics.php';
+//var gadgetGetMetricsPath = '/gadgets/instances/' + gadgetInstanceId + '/getNetworkDeviceMetrics.php';
+var gadgetGetMetricsPath = currentURL.substr(0,$("script#ownScript").attr("src").lastIndexOf("/")+1) + 'getNetworkDeviceMetrics.php';
 var normalGetMetricsPath = 'getNetworkDeviceMetrics.php';
 var relativeGetMetricsPath = '/gadgets/networkgauge/getNetworkDeviceMetrics.php';
-var getMetricsPath = relativeGetMetricsPath;
+var getMetricsPath = gadgetGetMetricsPath;
 // Set chart options
 var commonChartOptions = {
     credits: {enabled: false},
