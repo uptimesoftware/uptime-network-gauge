@@ -106,7 +106,7 @@ elseif ($query_type == "network_port_metrics") {
     $result = $db->execQuery($sql);
 
     foreach ($result as $row) {
-        $sample_time = strtotime($row['sample_time']);
+        $sample_time = strtotime($row['SAMPLE_TIME']);
         $x = $sample_time * 1000;
         
         $if_speed = $row['IF_SPEED'];
