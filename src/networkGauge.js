@@ -16,6 +16,7 @@ var refreshIntervalSliderOptions = {"1" : "10000", "2" : "30000", "3" : "60000",
     "4" : "300000", "5" : "600000" };
 var gadgetInstanceId = uptimeGadget.getInstanceId();
 //var gadgetGetMetricsPath = '/gadgets/instances/' + gadgetInstanceId + '/getNetworkDeviceMetrics.php';
+var currentURL = $("script#ownScript").attr("src");
 var gadgetGetMetricsPath = currentURL.substr(0,$("script#ownScript").attr("src").lastIndexOf("/")+1) + 'getNetworkDeviceMetrics.php';
 var normalGetMetricsPath = 'getNetworkDeviceMetrics.php';
 var relativeGetMetricsPath = '/gadgets/networkgauge/getNetworkDeviceMetrics.php';

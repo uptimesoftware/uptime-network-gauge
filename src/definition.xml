@@ -15,14 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Network Gauge Gadget">
         <meta name="author" content="Lubomyr Salamakha, uptime Solutions Architect">
-        <link rel="stylesheet" type="text/css" href="__UPTIME_HTTP_BASE__/deltas/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="__UPTIME_HTTP_BASE__/deltas/chosen/chosen.css">
-        <link rel="stylesheet" type="text/css" href="__UPTIME_HTTP_BASE__/deltas/bootstrap/dist/css/bootstrap-theme.css">
-        <link rel="stylesheet" type="text/css" href="__UPTIME_HTTP_BASE__/deltas/jquery/themes/custom/jquery-ui-1.10.3.custom.css">
+        <link rel="stylesheet" type="text/css" href="__UPTIME_GADGET_BASE__/deltas/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="__UPTIME_GADGET_BASE__/deltas/chosen/chosen.css">
+        <link rel="stylesheet" type="text/css" href="__UPTIME_GADGET_BASE__/deltas/bootstrap/dist/css/bootstrap-theme.css">
+        <link rel="stylesheet" type="text/css" href="__UPTIME_GADGET_BASE__/deltas/jquery/themes/custom/jquery-ui-1.10.3.custom.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-        <script src="__UPTIME_HTTP_BASE__/deltas/bootstrap/assets/js/html5shiv.js"></script>
-        <script src="__UPTIME_HTTP_BASE__/deltas/bootstrap/assets/js/respond.min.js"></script>
+        <script src="__UPTIME_GADGET_BASE__/deltas/bootstrap/assets/js/html5shiv.js"></script>
+        <script src="__UPTIME_GADGET_BASE__/deltas/bootstrap/assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
     <body>
