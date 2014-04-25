@@ -20,17 +20,8 @@ header("Content-type: text/json");
 include("uptimeDB.php");
 
 $query_type = $_GET['query_type'];
-$host = $_GET['uptime_host'];
 $time_frame = $_GET['time_frame'];
 
-$service_monitor = explode("-", $_GET['monitor']);
-$erdc_parameter_id = $service_monitor[0];
-$data_type_id = $service_monitor[1];
-$performance_monitor = $_GET['monitor'];
-$element = explode("-", $_GET['element']);
-$element_id = $_GET['element'];
-$entity_id = $element[0];
-$erdc_instance_id = $element[1];
 
 $device_id = $_GET['device_id'];
 $if_index = $_GET['port_id'];
