@@ -19,12 +19,22 @@ header("Content-type: text/json");
 
 include("uptimeDB.php");
 
-$query_type = $_GET['query_type'];
-$time_frame = $_GET['time_frame'];
+if (isset($_GET['query_type'])){
+    $query_type = $_GET['query_type'];
+}
+else{
+    exit(1);
+}
+if (isset($_GET['time_frame'])){
+    $time_frame = $_GET['time_frame'];
+}
+if (isset($_GET['device_id'])){
+    $device_id = $_GET['device_id'];
+}
 
-
-$device_id = $_GET['device_id'];
-$if_index = $_GET['port_id'];
+if (isset($_GET['port_id'])){
+    $if_index = $_GET['port_id'];
+}
 
 $json = array();
 
