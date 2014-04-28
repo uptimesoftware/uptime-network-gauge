@@ -69,11 +69,16 @@ if ($query_type == "network_devices") {
 
 // Enumerate network device ports
 elseif ($query_type == "network_ports") {
-    $sql = "SELECT id, ndpc.entity_id, if_index, if_name
+    $sql = "SELECT ndpc.id, ndpc.entity_id, ndpc.if_index, ndpc.if_name
             FROM net_device_port_config ndpc
             JOIN entity_configuration ec on ec.entity_id = ndpc.entity_id
+            INNER JOIN net_device_perf_latest_sample on net_device_perf_latest_sample.entity_id = ndpc.entity_id
+            INNER JOIN net_device_perf_port perfPort ON (perfPort.sample_id = net_device_perf_latest_sample.sample_id
+                AND ndpc.if_index = perfPort.if_index)
             WHERE ndpc.entity_id = $device_id
-            ORDER BY if_index";
+            AND ndpc.if_admin_status = 1
+            and perfPort.kbps_total_rate is not null
+            ORDER BY ndpc.if_index";
 
     $result = $db->execQuery($sql);
 
