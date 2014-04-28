@@ -8,7 +8,7 @@ var myChartDimensions = null;
 var renderSuccessful = null;  //Add this later
 var divsToDim = ['#widgetChart', '#widgetSettings'];
 var settings = {deviceId: null, portId: null, metricId: null, refreshInterval: null,
-                chartTitle: null, seriesTitle: null, thresholdValues: null};
+                chartTitle: null, seriesTitle: null, thresholdValues: null, inMax: null, outMax: null};
 var refreshIntervalOptions = {"10000" : "10 seconds", "30000" : "30 seconds",
     "60000" : "minute", "300000" : "5 minutes",
     "600000" : "10 minutes"};
@@ -340,6 +340,13 @@ function populateOptions() {
     $("#outboundMetricsLabel").append('&nbsp;&nbsp; ∙ &nbsp; ∙ &nbsp; ∙ &nbsp; ∙ &nbsp; ∙ ');
     $("#totalMetricsLabel").append('&nbsp;&nbsp; ∙ &nbsp; ∙ &nbsp; ∙ &nbsp; ∙ &nbsp; ∙ ');
 
+
+
+    $('#inbound-max').val(settings.inMax);
+   
+    $('#outbound-max').val(settings.outMax);
+
+
     populateDevices();
 }
 
@@ -361,8 +368,8 @@ function saveSettings() {
     settings.seriesTitle = $('select.metrics option:selected').text();
     refreshIntervalIndex = $("#refreshIntervalSlider").slider("value");
     settings.refreshInterval = refreshIntervalSliderOptions[refreshIntervalIndex];
-    settings.inMax = $('#inbound-max').val()*1000;
-    settings.outMax = $('#outbound-max').val()*1000;
+    settings.inMax = $('#inbound-max').val();
+    settings.outMax = $('#outbound-max').val();
 
     uptimeGadget.saveSettings(settings).then(onGoodSave, onBadAjax);
 }
@@ -380,6 +387,12 @@ function loadSettings(settings) {
     seriesTitle = settings.seriesTitle;
     inMax = settings.inMax;
     outMax = settings.outMax;
+
+
+
+    $('#inbound-max').val(inMax);
+   
+    $('#outbound-max').val(outMax);
 
     if (typeof refreshInterval !== 'undefined') {
         if (debugMode) {console.log('Gadget #' + gadgetInstanceId + ' - Setting refresh interval slider to: '
@@ -502,23 +515,30 @@ function renderChart(settings, data) {
     //kbps_out_rate = parseInt(data[0][1]["kbps_out_rate"]) * 160;  // Modeling data
     kbps_total_rate = data[0][1]["kbps_total_rate"];
     //kbps_total_rate = kbps_in_rate + kbps_out_rate;               // Modeling data
-    
+
+
+    temp_inMax = settings.inMax * 1000;
+    temp_outMax = settings.outMax * 1000;
+
     if (settings.inMax != 0) {
-        percent_in_rate = Math.round(kbps_in_rate / settings.inMax * 100);      
+       
+        percent_in_rate = Math.round(kbps_in_rate / temp_inMax * 100);      
     } else {
         percent_in_rate = Math.round(kbps_in_rate / if_speed * 100);
     }
     mbps_in_rate = (kbps_in_rate / 1000).toFixed(2);
     
     if (settings.outMax != 0) {
-        percent_out_rate = Math.round(kbps_out_rate / settings.inMax * 100);
+        
+        percent_out_rate = Math.round(kbps_out_rate / temp_outMax * 100);
     } else {
         percent_out_rate = Math.round(kbps_out_rate / if_speed * 100);  
     }       
     mbps_out_rate = (kbps_out_rate / 1000).toFixed(2);
     
     if ((settings.inMax != 0) && (settings.outMax != 0))  {
-        percent_total_rate = Math.round((kbps_total_rate / (settings.inMax + settings.outMax) * 100) / 2);
+
+        percent_total_rate = Math.round((kbps_total_rate / (temp_inMax + temp_outMax) * 100) / 2);
     } else {
         percent_total_rate = Math.round((kbps_total_rate / if_speed * 100) / 2);
     }           
