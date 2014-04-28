@@ -1,5 +1,4 @@
 // Initialize variables
-var uptimeHost = 'localhost';
 var debugMode = null;
 var interval = null;
 var requestString = null;
@@ -17,10 +16,7 @@ var refreshIntervalSliderOptions = {"1" : "10000", "2" : "30000", "3" : "60000",
 var gadgetInstanceId = uptimeGadget.getInstanceId();
 //var gadgetGetMetricsPath = '/gadgets/instances/' + gadgetInstanceId + '/getNetworkDeviceMetrics.php';
 var currentURL = $("script#ownScript").attr("src");
-var gadgetGetMetricsPath = currentURL.substr(0,$("script#ownScript").attr("src").lastIndexOf("/")+1) + 'getNetworkDeviceMetrics.php';
-var normalGetMetricsPath = 'getNetworkDeviceMetrics.php';
-var relativeGetMetricsPath = '/gadgets/networkgauge/getNetworkDeviceMetrics.php';
-var getMetricsPath = gadgetGetMetricsPath;
+var getMetricsPath = currentURL.substr(0,$("script#ownScript").attr("src").lastIndexOf("/")+1) + 'getNetworkDeviceMetrics.php';
 // Set chart options
 var commonChartOptions = {
     credits: {enabled: false},
@@ -259,7 +255,7 @@ $("select.devices").on('change', function(evt, params) {
     populatePorts();
 });
 function populateDevices() {
-    requestString = getMetricsPath + '?uptime_host=' + uptimeHost + '&query_type=network_devices';
+    requestString = getMetricsPath + '?query_type=network_devices';
     if (debugMode) {console.log('Gadget #' + gadgetInstanceId + ' - Requesting: ' + requestString)};
     $.getJSON(requestString, function(data) {
     }).done(function(data) {
@@ -284,7 +280,7 @@ function populateDevices() {
 }
 
 function populatePorts() {
-    requestString = getMetricsPath  + '?uptime_host=' + uptimeHost + '&query_type=network_ports'
+    requestString = getMetricsPath  + '?query_type=network_ports'
                                     + '&device_id=' + deviceId;
     if (debugMode) {console.log('Gadget #' + gadgetInstanceId + ' - Requesting: ' + requestString)};
     $.getJSON(requestString, function(data) {
@@ -461,7 +457,7 @@ function displayChart(settings) {
     $("#widgetBody").slideUp();
     $("#loading-div").show('fade');
 
-    requestString = getMetricsPath  + '?uptime_host=' + uptimeHost + '&query_type=network_port_metrics'
+    requestString = getMetricsPath  + '?query_type=network_port_metrics'
         + '&device_id=' + settings.deviceId + '&port_id=' + settings.portId;
     if (debugMode) {console.log('Gadget #' + gadgetInstanceId + ' - Requesting: ' + requestString)};
 
