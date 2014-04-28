@@ -43,6 +43,14 @@
                             </select>
                             <span class="badge pull-right" id="port-count" style="margin-top: 2px"></span>
                         </div>
+                        
+                        <div class="input-group" style="margin-top: 12px">
+                            <input type="text" id="inbound-max" placeholder="In Max" class="form-control">
+                            <span id="inbound-max-addon"  class="input-group-addon">Mbps</span>
+                            <input type="text" id="outbound-max" placeholder="Out Max" class="form-control" style="margin-left: 8px">
+                            <span id="outbound-max-addon"  class="input-group-addon">Mbps</span>
+                        </div>
+
                         <div hidden id="metric-div" style="margin-top: 12px" data-content="metric: Select the metric which you would like to visualize in the chart" data-placement="right" data-trigger="hover">
                             <select class="metrics" id="metrics" data-placeholder="Metric" tabindex="5" data-size="12" style="width: 175px">
                                 <option value=""></option>

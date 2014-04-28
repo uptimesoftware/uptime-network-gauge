@@ -361,6 +361,8 @@ function saveSettings() {
     settings.seriesTitle = $('select.metrics option:selected').text();
     refreshIntervalIndex = $("#refreshIntervalSlider").slider("value");
     settings.refreshInterval = refreshIntervalSliderOptions[refreshIntervalIndex];
+    settings.inMax = $('#inbound-max').val()*1000;
+    settings.outMax = $('#outbound-max').val()*1000;
 
     uptimeGadget.saveSettings(settings).then(onGoodSave, onBadAjax);
 }
@@ -376,6 +378,8 @@ function loadSettings(settings) {
     thresholdValues = settings.thresholdValues;
     refreshInterval = settings.refreshInterval;
     seriesTitle = settings.seriesTitle;
+    inMax = settings.inMax;
+    outMax = settings.outMax;
 
     if (typeof refreshInterval !== 'undefined') {
         if (debugMode) {console.log('Gadget #' + gadgetInstanceId + ' - Setting refresh interval slider to: '
@@ -422,7 +426,8 @@ function onGoodSave() {
 function printSettings(settings) {
     var printString = 'deviceId: ' + settings.deviceId + ', portId: ' + settings.portId + ', metricId: ' + settings.metricId
                     + ', thresholdValues: ' + settings.thresholdValues + ', refreshInterval: ' + settings.refreshInterval
-                    + ', seriesTitle: ' + settings.seriesTitle;
+                    + ', seriesTitle: ' + settings.seriesTitle + ', inMax: ' + settings.inMax 
+                    + ', outMax: ' + settings.outMax;
     return printString;
 }
 
@@ -497,12 +502,29 @@ function renderChart(settings, data) {
     //kbps_out_rate = parseInt(data[0][1]["kbps_out_rate"]) * 160;  // Modeling data
     kbps_total_rate = data[0][1]["kbps_total_rate"];
     //kbps_total_rate = kbps_in_rate + kbps_out_rate;               // Modeling data
-    percent_in_rate = Math.round(kbps_in_rate / if_speed * 100);
+    
+    if (settings.inMax != 0) {
+        percent_in_rate = Math.round(kbps_in_rate / settings.inMax * 100);      
+    } else {
+        percent_in_rate = Math.round(kbps_in_rate / if_speed * 100);
+    }
     mbps_in_rate = (kbps_in_rate / 1000).toFixed(2);
-    percent_out_rate = Math.round(kbps_out_rate / if_speed * 100);
+    
+    if (settings.outMax != 0) {
+        percent_out_rate = Math.round(kbps_out_rate / settings.inMax * 100);
+    } else {
+        percent_out_rate = Math.round(kbps_out_rate / if_speed * 100);  
+    }       
     mbps_out_rate = (kbps_out_rate / 1000).toFixed(2);
-    percent_total_rate = Math.round((kbps_total_rate / if_speed * 100) / 2);
+    
+    if ((settings.inMax != 0) && (settings.outMax != 0))  {
+        percent_total_rate = Math.round((kbps_total_rate / (settings.inMax + settings.outMax) * 100) / 2);
+    } else {
+        percent_total_rate = Math.round((kbps_total_rate / if_speed * 100) / 2);
+    }           
     mbps_total_rate = (kbps_total_rate / 1000).toFixed(2);
+
+
     thresholdValues = settings.thresholdValues;
 
     topChartOptions.series[0].data = [parseInt(percent_in_rate)];
