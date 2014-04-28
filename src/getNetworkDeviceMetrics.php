@@ -98,7 +98,7 @@ elseif ($query_type == "network_port_metrics") {
             INNER JOIN net_device_port_config portConf ON e.entity_id = portConf.entity_id
             INNER JOIN net_device_perf_port perfPort ON (perfPort.sample_id = lastSample.sample_id
                 AND portConf.if_index = perfPort.if_index)
-            INNER JOIN performance_sample ps ON ps.id = perfPort.sample_id
+            INNER JOIN net_device_perf_sample ps ON ps.id = perfPort.sample_id
             WHERE e.entity_id = $device_id
                 AND portConf.if_index = $if_index";
 
