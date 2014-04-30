@@ -14,10 +14,25 @@
 //lost profits even if uptime software has been advised of the possibility of such
 //damages.
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/classLoader.inc";
+
+
+
+session_start();
+
+$user_name =  $_SESSION['current_user']->getName();
+$user_pass = $_SESSION['current_user']->getPassword();
+
+session_write_close();
+
+
 // Set the JSON header
 header("Content-type: text/json");
 
 include("uptimeDB.php");
+include("uptimeApi.php");
+
+
 
 if (isset($_GET['query_type'])){
     $query_type = $_GET['query_type'];
@@ -51,7 +66,7 @@ else
 }
 
 // Enumerate devices
-if ($query_type == "network_devices") {
+if ($query_type == "network_devices_via_db") {
     $sql = "SELECT entity_id, name, display_name
             FROM entity
             WHERE entity_type_id = 2
@@ -64,6 +79,27 @@ if ($query_type == "network_devices") {
         } 
     // Echo results as JSON
     echo json_encode($json);
+}
+
+elseif ($query_type =="network_devices") {
+
+$uptime_api_username = $user_name;
+$uptime_api_password = $user_pass;
+$uptime_api_hostname = "localhost";     // up.time Controller hostname (usually localhost, but not always)
+$uptime_api_port = 9997;
+$uptime_api_version = "v1";
+$uptime_api_ssl = true;
+
+// Create API object
+$uptime_api = new uptimeApi($uptime_api_username, $uptime_api_password, $uptime_api_hostname, $uptime_api_port, $uptime_api_version, $uptime_api_ssl);
+
+$devices = $uptime_api->getElements("type=NetworkDevice&isMonitored=1");
+
+foreach ($devices as $d) {
+    $json[$d['name']] = $d['id'];
+}
+
+echo json_encode($json);
 }
 
 
