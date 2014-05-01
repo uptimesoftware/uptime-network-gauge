@@ -6,7 +6,7 @@
         <Require feature="dynamic-height" />
     </ModulePrefs>
     <Content type="html">
-	<![CDATA[ 
+    <![CDATA[ 
     <!DOCTYPE html>
     <html>
     <head>
@@ -152,7 +152,7 @@
     <script id="ownScript" src="__UPTIME_GADGET_BASE__/networkGauge.js?v12" type="text/javascript" charset="utf-8"></script>
     </body>
     </html>
-	]]>
+    ]]>
 
     </Content>
 </Module>
