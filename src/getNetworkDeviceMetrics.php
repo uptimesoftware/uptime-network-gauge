@@ -129,11 +129,24 @@ elseif ($query_type == "network_ports") {
 
 // Get network metrics for a specific device and port
 elseif ($query_type == "network_port_metrics") {
-    $sql = "SELECT  ps.id, ps.sample_time, e.entity_id, e.name entity_name, portConf.if_index, portConf.if_name, portConf.if_speed, 
-                    perfPort.kbps_in_rate, perfPort.kbps_out_rate, perfPort.kbps_total_rate, 
-                    perfPort.discards_in_rate, perfPort.discards_out_rate, perfPort.discards_total_rate, 
-                    perfPort.errors_in_rate, perfPort.errors_out_rate, perfPort.errors_total_rate, 
-                    perfPort.usage_in_percent, perfPort.usage_out_percent, perfPort.usage_percent
+    $sql = "SELECT  ps.id, ps.sample_time,
+                    e.entity_id,
+                    e.name entity_name,
+                    portConf.if_index,
+                    portConf.if_name,
+                    portConf.if_speed, 
+                    perfPort.kbps_in_rate,
+                    perfPort.kbps_out_rate,
+                    perfPort.kbps_total_rate, 
+                    perfPort.discards_in_rate D_IN_RATE,
+                    perfPort.discards_out_rate D_OUT_RATE,
+                    perfPort.discards_total_rate D_TOT_RATE, 
+                    perfPort.errors_in_rate E_IN_RATE,
+                    perfPort.errors_out_rate E_OUT_RATE,
+                    perfPort.errors_total_rate E_TOT_RATE, 
+                    perfPort.usage_in_percent USAGE_IN_PER,
+                    perfPort.usage_out_percent USAGE_OUT_PER,
+                    perfPort.usage_percent USAGE_PER
             FROM net_device_perf_latest_sample lastSample
             INNER JOIN entity e ON e.entity_id = lastSample.entity_id
             INNER JOIN net_device_port_config portConf ON e.entity_id = portConf.entity_id
@@ -154,15 +167,15 @@ elseif ($query_type == "network_port_metrics") {
         $kbps_in_rate = $row['KBPS_IN_RATE'];
         $kbps_out_rate = $row['KBPS_OUT_RATE'];
         $kbps_total_rate = $row['KBPS_TOTAL_RATE'];
-        $discards_in_rate = $row['DISCARDS_IN_RATE'];
-        $discards_out_rate = $row['DISCARDS_OUT_RATE'];
-        $discards_total_rate = $row['DISCARDS_TOTAL_RATE'];
-        $errors_in_rate = $row['ERRORS_IN_RATE'];
-        $errors_out_rate = $row['ERRORS_OUT_RATE'];
-        $errors_total_rate = $row['ERRORS_TOTAL_RATE'];
-        $usage_in_percent = $row['USAGE_IN_PERCENT'];
-        $usage_out_percent = $row['USAGE_OUT_PERCENT'];
-        $usage_percent = $row['USAGE_PERCENT'];
+        $discards_in_rate = $row['D_IN_RATE'];
+        $discards_out_rate = $row['D_OUT_RATE'];
+        $discards_total_rate = $row['D_TOT_RATE'];
+        $errors_in_rate = $row['E_IN_RATE'];
+        $errors_out_rate = $row['E_OUT_RATE'];
+        $errors_total_rate = $row['E_TOT_RATE'];
+        $usage_in_percent = $row['USAGE_IN_PER'];
+        $usage_out_percent = $row['USAGE_OUT_PER'];
+        $usage_percent = $row['USAGE_PER'];
         
         $y = array("if_speed" => $if_speed, "kbps_in_rate" => $kbps_in_rate, "kbps_out_rate" => $kbps_out_rate, "kbps_total_rate" => $kbps_total_rate,
               "discards_in_rate" => $discards_in_rate, "discards_out_rate" => $discards_out_rate, "discards_total_rate" => $discards_total_rate,
