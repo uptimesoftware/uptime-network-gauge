@@ -428,7 +428,7 @@ function goodLoad(settings) {
 function onGoodSave() {
     clearStatusBar();
     console.log('Gadget #' + gadgetInstanceId + ' - Saved settings: ' + printSettings(settings));
-    parent.location.reload();       // Try to avoid having to do this
+    //parent.location.reload();       // Try to avoid having to do this
     displayChart(settings);
 }
 
