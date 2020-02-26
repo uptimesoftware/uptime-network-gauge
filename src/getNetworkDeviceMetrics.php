@@ -74,7 +74,7 @@ if ($query_type == "network_devices_via_db") {
 
     $result = $db->execQuery($sql);
 
-    foreach ($result as $row) {
+    foreach ((array)$result as $row) {
         $json[$row['DISPLAY_NAME']] = $row['ENTITY_ID'];
         } 
     // Echo results as JSON
@@ -95,7 +95,7 @@ $uptime_api = new uptimeApi($uptime_api_username, $uptime_api_password, $uptime_
 
 $devices = $uptime_api->getElements("type=NetworkDevice&isMonitored=1");
 
-foreach ($devices as $d) {
+foreach ((array)$devices as $d) {
     $json[$d['name']] = $d['id'];
 }
 
@@ -118,7 +118,7 @@ elseif ($query_type == "network_ports") {
 
     $result = $db->execQuery($sql);
 
-    foreach ($result as $row) {
+    foreach ((array)$result as $row) {
         $json[$row['IF_NAME']] = $row['IF_INDEX'];
         }
 
@@ -159,7 +159,7 @@ elseif ($query_type == "network_port_metrics") {
 
     $result = $db->execQuery($sql);
 
-    foreach ($result as $row) {
+    foreach ((array)$result as $row) {
         $sample_time = strtotime($row['SAMPLE_TIME']);
         $x = $sample_time * 1000;
         
